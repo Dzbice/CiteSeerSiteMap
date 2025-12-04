@@ -1,6 +1,7 @@
 # CiteSeer Sitemap Generator
 Python scripts that may be used to generate a sitemap for [CiteSeerX](https://citeseerx.ist.psu.edu/)  
 # Usage
+Run Doi Text File generation, then run Sitemap Generation
 ## 1. Doi Text File Generation
 ### A. Single-direcotry  
 ```bash
