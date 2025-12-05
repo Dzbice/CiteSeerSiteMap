@@ -3,6 +3,7 @@ Python scripts that may be used to generate a sitemap for [CiteSeerX](https://ci
 # Usage
 Run Doi Text File generation, then run Sitemap Generation
 ## 1. Doi Text File Generation
+**For batch creation you must have both doi_txt_maker.py and doi_txt_makerFull.py downloaded in the same work space**
 ### A. Single-direcotry  
 ```bash
 python3 doi_txt_maker.py
