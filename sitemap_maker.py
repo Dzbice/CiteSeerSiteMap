@@ -2,6 +2,7 @@ import os
 from xml.dom import minidom
 import xml.etree.ElementTree as ET
 import time
+import sys
 
 def combineDOi(DOIPath):
     start = time.time()
@@ -56,9 +57,11 @@ def sitemapIndex():
         with open("sitemap_index.xml","w") as f:
                 f.write(minidom.parseString(ET.tostring(root, encoding="utf-8")).toprettyxml(indent="  "))
 
+if len(sys.argv) !=2:
+    print("Usage: python3 sitemap_maker.py <doiFile_directoryPath>")
+    sys.exit()
 
-
-DOI = input("DOi files directory path: ")
+DOI = sys.argv[1]
 sitemapGen(combineDOi(DOI))
 sitemapIndex()
     

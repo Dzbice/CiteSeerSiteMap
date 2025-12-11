@@ -1,22 +1,13 @@
 from doi_txt_maker import txtDoi
-import time
 import os
+import sys
 
-print("Give repo path")
-x = input()
-print("Give output path for all the DOI files")
-y = input()
-start = time.time()
-dirs = os.listdir(x)
+if len(sys.argv) != 3:
+        print("Usage: python3 doi_txt_makerFull.py <repo_rath> <output_directory>")
+        sys.exit()
+repo = sys.argv[1]
+output = sys.argv[2]
+dirs = os.listdir(repo)
 dirs.sort()
 for i in range(len(dirs)):
-        txtDoi(f"{x}/{dirs[i]}",y,i)
-        print(i)
-end =time.time()
-print(f"total time {end-start}")
-
-
-# autogenerate citations for website 
-# stores authores names in database
-# use firebase to store data via database
-# pull from database to create citations
+        txtDoi(f"{repo}/{dirs[i]}",output,i)
