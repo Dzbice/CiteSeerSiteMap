@@ -38,24 +38,30 @@ def sitemapGen(alldoi): #alldoi is the path to the txt file with all doi files
 
 def xmlWrite(batch,index):
     baseUrl = "https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi="
-    root = ET.Element("urlset")
+    root = ET.Element(
+    "urlset",
+    {"xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+)
     for i in batch:
         url = ET.SubElement(root,"url")
         loc = ET.SubElement(url,"loc")
         loc.text = baseUrl + i.strip()
     with open(f"sitemaps/sitemap{index}.xml","w") as f:
-        f.write(minidom.parseString(ET.tostring(root, encoding="utf-8")).toprettyxml(indent="  "))
+        f.write(minidom.parseString(ET.tostring(root, encoding="utf-8")).toprettyxml(indent="  "), encoding = "utf-8")
 
 def sitemapIndex():
     baseurl = "https://citeseerx.ist.psu.edu/"
-    root = ET.Element("sitemapindex")
+    root = ET.Element(
+    "sitemapindex",
+    {"xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+)
     with os.scandir("sitemaps") as entries:
         for entry in sorted(entries, key=lambda e: e.name): #sorts entries based on name
             sitemap = ET.SubElement(root,"sitemap")
             loc = ET.SubElement(sitemap,"loc")
             loc.text = baseurl + entry.name
         with open("sitemap_index.xml","w") as f:
-                f.write(minidom.parseString(ET.tostring(root, encoding="utf-8")).toprettyxml(indent="  "))
+                f.write(minidom.parseString(ET.tostring(root, encoding="utf-8")).toprettyxml(indent="  "), encoding = "utf-8")
 
 if len(sys.argv) !=2:
     print("Usage: python3 sitemap_maker.py <doiFile_directoryPath>")
