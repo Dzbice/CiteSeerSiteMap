@@ -4,7 +4,7 @@ import xml.etree.ElementTree as ET
 import time
 import sys
 
-def combineDOi(DOIPath):
+def combineDOi(DOIPath): 
     start = time.time()
     if os.path.exists("allDOI.txt"): #re creating alldoi file
         os.remove("allDOI.txt")
@@ -36,18 +36,19 @@ def sitemapGen(alldoi): #alldoi is the path to the txt file with all doi files
     print(f"Sitemaps generated in {end - start:.2f} seconds")
             
 
-def xmlWrite(batch,index):
+def xmlWrite(batch,index): # makes general xml's 
     baseUrl = "https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi="
     root = ET.Element(
     "urlset",
     {"xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9"}
 )
-    for i in batch:
+    for i in batch: 
         url = ET.SubElement(root,"url")
         loc = ET.SubElement(url,"loc")
         loc.text = baseUrl + i.strip()
-    with open(f"sitemaps/sitemap{index}.xml","w") as f:
-        f.write(minidom.parseString(ET.tostring(root, encoding="utf-8")).toprettyxml(indent="  "), encoding = "UTF-8")
+    xmlToWrite = minidom.parseString(ET.tostring(root, encoding="utf-8")).toprettyxml(indent="  ",encoding = "UTF-8") # makes a nice looking xml text to write
+    with open(f"sitemaps/sitemap{index}.xml","wb") as f:
+        f.write(xmlToWrite)
 
 def sitemapIndex():
     baseurl = "https://citeseerx.ist.psu.edu/"
@@ -60,8 +61,10 @@ def sitemapIndex():
             sitemap = ET.SubElement(root,"sitemap")
             loc = ET.SubElement(sitemap,"loc")
             loc.text = baseurl + entry.name
-        with open("sitemap_index.xml","w") as f:
-                f.write(minidom.parseString(ET.tostring(root, encoding="utf-8")).toprettyxml(indent="  "), encoding = "UTF-8")
+        xmlToWrite = minidom.parseString(ET.tostring(root, encoding="utf-8")).toprettyxml(indent="  ",encoding = "UTF-8")
+            
+        with open("sitemap_index.xml","wb") as f:
+                f.write(xmlToWrite)
 
 if len(sys.argv) !=2:
     print("Usage: python3 sitemap_maker.py <doiFile_directoryPath>")
@@ -70,5 +73,4 @@ if len(sys.argv) !=2:
 DOI = sys.argv[1]
 sitemapGen(combineDOi(DOI))
 sitemapIndex()
-    
 

@@ -5,7 +5,7 @@ import sys
 
 
 
-def txtDoi(path,output,index):
+def txtDoi(path,output,index): #function to write doi files based on firectory
     os.makedirs(output, exist_ok=True)
     expression = re.compile("[0-9a-f]{2}") 
     with open(f"{output}/DOI{index}.txt","w")as fp:
