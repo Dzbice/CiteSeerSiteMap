@@ -47,7 +47,7 @@ def xmlWrite(batch,index):
         loc = ET.SubElement(url,"loc")
         loc.text = baseUrl + i.strip()
     with open(f"sitemaps/sitemap{index}.xml","w") as f:
-        f.write(minidom.parseString(ET.tostring(root, encoding="utf-8")).toprettyxml(indent="  "), encoding = "utf-8")
+        f.write(minidom.parseString(ET.tostring(root, encoding="utf-8")).toprettyxml(indent="  "), encoding = "UTF-8")
 
 def sitemapIndex():
     baseurl = "https://citeseerx.ist.psu.edu/"
@@ -61,7 +61,7 @@ def sitemapIndex():
             loc = ET.SubElement(sitemap,"loc")
             loc.text = baseurl + entry.name
         with open("sitemap_index.xml","w") as f:
-                f.write(minidom.parseString(ET.tostring(root, encoding="utf-8")).toprettyxml(indent="  "), encoding = "utf-8")
+                f.write(minidom.parseString(ET.tostring(root, encoding="utf-8")).toprettyxml(indent="  "), encoding = "UTF-8")
 
 if len(sys.argv) !=2:
     print("Usage: python3 sitemap_maker.py <doiFile_directoryPath>")
